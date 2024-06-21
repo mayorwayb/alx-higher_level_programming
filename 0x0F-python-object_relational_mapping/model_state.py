@@ -1,10 +1,18 @@
-CREATE DATABASE IF NOT EXISTS hbtn_0e_6_usa;
+#!/usr/bin/python3
+"""
+Contains State class and Base, an instance of declarative_base()
+"""
+from sqlalchemy import Column, Integer, String, MetaData
+from sqlalchemy.ext.declarative import declarative_base
 
-USE hbtn_0e_6_usa;
+mymetadata = MetaData()
+Base = declarative_base(metadata=mymetadata)
 
-CREATE TABLE IF NOT EXISTS states (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
 
-INSERT INTO states (name) VALUES ('California'), ('Texas'), ('New York');
+class State(Base):
+    """
+    Class with id and name attributes of each state
+    """
+    __tablename__ = 'states'
+    id = Column(Integer, unique=True, nullable=False, primary_key=True)
+    name = Column(String(128), nullable=False)
